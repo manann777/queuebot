@@ -9,10 +9,12 @@ use Yii;
  *
  * @property integer $queueId
  * @property integer $queueNumber
- * @property integer $orderId
+ * @property string $orderId
  * @property integer $orderQty
  * @property double $orderPricesum
  * @property string $queueComment
+ *
+ * @property Ordercommand $order
  */
 class Queueinfo extends \yii\db\ActiveRecord
 {
@@ -34,6 +36,7 @@ class Queueinfo extends \yii\db\ActiveRecord
             [['queueId', 'queueNumber', 'orderId', 'orderQty'], 'integer'],
             [['orderPricesum'], 'number'],
             [['queueComment'], 'string'],
+            [['orderId'], 'exist', 'skipOnError' => true, 'targetClass' => Ordercommand::className(), 'targetAttribute' => ['orderId' => 'orderId']],
         ];
     }
 
@@ -50,5 +53,13 @@ class Queueinfo extends \yii\db\ActiveRecord
             'orderPricesum' => 'ราคารวมแต่ละออเดอร์',
             'queueComment' => 'หมายเหตุ',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOrder()
+    {
+        return $this->hasOne(Ordercommand::className(), ['orderId' => 'orderId']);
     }
 }

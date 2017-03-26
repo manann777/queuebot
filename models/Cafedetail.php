@@ -12,6 +12,9 @@ use Yii;
  * @property string $cafeDetail
  * @property string $cafeTime
  * @property string $cafeComment
+ *
+ * @property Ordercommand[] $ordercommands
+ * @property Queuetable[] $queuetables
  */
 class Cafedetail extends \yii\db\ActiveRecord
 {
@@ -47,5 +50,21 @@ class Cafedetail extends \yii\db\ActiveRecord
             'cafeTime' => 'เวลาเปิดปิดjson',
             'cafeComment' => 'หมายเหตุ',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOrdercommands()
+    {
+        return $this->hasMany(Ordercommand::className(), ['cafeId' => 'cafeId']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getQueuetables()
+    {
+        return $this->hasMany(Queuetable::className(), ['cafeId' => 'cafeId']);
     }
 }

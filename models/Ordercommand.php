@@ -12,6 +12,9 @@ use Yii;
  * @property double $orderPrice
  * @property string $orderCommand
  * @property string $cafeId
+ *
+ * @property Cafedetail $cafe
+ * @property Queueinfo[] $queueinfos
  */
 class Ordercommand extends \yii\db\ActiveRecord
 {
@@ -33,6 +36,7 @@ class Ordercommand extends \yii\db\ActiveRecord
             [['orderPrice'], 'number'],
             [['cafeId'], 'integer'],
             [['orderMenu', 'orderCommand'], 'string', 'max' => 100],
+            [['cafeId'], 'exist', 'skipOnError' => true, 'targetClass' => Cafedetail::className(), 'targetAttribute' => ['cafeId' => 'cafeId']],
         ];
     }
 
@@ -48,5 +52,21 @@ class Ordercommand extends \yii\db\ActiveRecord
             'orderCommand' => 'คำสั่ง',
             'cafeId' => 'เลขประจำร้าน',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCafebyid()
+    {
+        return $this->hasOne(Cafedetail::className(), ['cafeId' => 'cafeId']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getQueueinfos()
+    {
+        return $this->hasMany(Queueinfo::className(), ['orderId' => 'orderId']);
     }
 }

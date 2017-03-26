@@ -11,9 +11,12 @@ use Yii;
  * @property integer $queueNumber
  * @property string $userId
  * @property string $queueDatetime
- * @property integer $cafeId
+ * @property string $cafeId
  * @property string $queueLocation
  * @property string $queueStage
+ *
+ * @property Userinfo $user
+ * @property Cafedetail $cafe
  */
 class Queuetable extends \yii\db\ActiveRecord
 {
@@ -36,6 +39,8 @@ class Queuetable extends \yii\db\ActiveRecord
             [['queueDatetime'], 'safe'],
             [['queueStage'], 'string'],
             [['queueLocation'], 'string', 'max' => 100],
+            [['userId'], 'exist', 'skipOnError' => true, 'targetClass' => Userinfo::className(), 'targetAttribute' => ['userId' => 'userId']],
+            [['cafeId'], 'exist', 'skipOnError' => true, 'targetClass' => Cafedetail::className(), 'targetAttribute' => ['cafeId' => 'cafeId']],
         ];
     }
 
@@ -53,5 +58,21 @@ class Queuetable extends \yii\db\ActiveRecord
             'queueLocation' => 'โต๊ะหรือจุดจ่าย',
             'queueStage' => 'ลำดับ',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(Userinfo::className(), ['userId' => 'userId']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCafe()
+    {
+        return $this->hasOne(Cafedetail::className(), ['cafeId' => 'cafeId']);
     }
 }

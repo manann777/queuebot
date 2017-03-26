@@ -12,6 +12,8 @@ use Yii;
  * @property string $userIdline
  * @property string $userComment
  * @property integer $userStage
+ *
+ * @property Queuetable[] $queuetables
  */
 class Userinfo extends \yii\db\ActiveRecord
 {
@@ -49,5 +51,13 @@ class Userinfo extends \yii\db\ActiveRecord
             'userComment' => 'หมายเหตุ',
             'userStage' => 'stage',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getQueuetables()
+    {
+        return $this->hasMany(Queuetable::className(), ['userId' => 'userId']);
     }
 }

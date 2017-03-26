@@ -19,3 +19,7 @@ $('.timer').on('change',function(){
 
 
 })
+$('.selecter').selectize({
+    sortField: 'text',
+	selectOnTab:true,
+});
