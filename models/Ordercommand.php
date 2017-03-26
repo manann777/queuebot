@@ -57,7 +57,7 @@ class Ordercommand extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCafebyid()
+    public function getCafe()
     {
         return $this->hasOne(Cafedetail::className(), ['cafeId' => 'cafeId']);
     }

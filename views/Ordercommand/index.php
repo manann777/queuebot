@@ -26,8 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'orderMenu',
             'orderPrice',
             'orderCommand',
-            'cafeId',
-           
+            
+           ['label'=>'ร้าน','attribute'=>'cafeId','value'=>function($model,$index){
+            return $model->cafe->cafeName;
+
+           }],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

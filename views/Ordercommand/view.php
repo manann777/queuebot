@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'orderMenu',
             'orderPrice',
             'orderCommand',
-            'cafeId',
+            ['label'=>'ร้าน','value'=>$model->cafe->cafeName]
         ],
     ]) ?>
 
