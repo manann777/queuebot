@@ -113,3 +113,15 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.chatbox{
+    height: 300px;
+    overflow-y:scroll;
+    border-style: solid;
+}
+.botchat{
+    text-align: left;
+}
+.humanchat{
+    text-align:right;
+}
